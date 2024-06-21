@@ -3,6 +3,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { PrismaService } from 'prisma/prisma.service';
 import { promisify } from 'util';
@@ -12,7 +13,10 @@ const scrypt = promisify(_scrypt);
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async signUp(
     email: string,
@@ -61,10 +65,10 @@ export class AuthService {
       return new UnauthorizedException('Invalid credentials');
     }
 
+    const payload = { username: user.username, sub: user.id };
+
     return {
-      email: user.name,
-      name: user.email,
-      username: user.username,
+      token: this.jwtService.sign(payload),
     };
   }
 }

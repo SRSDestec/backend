@@ -9,3 +9,8 @@ export interface SignInInput {
   email: string;
   password: string;
 }
+
+export interface Payload {
+  sub: string;
+  username: string;
+}

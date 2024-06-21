@@ -1,0 +1,19 @@
+
+### SIGN IN
+POST http://localhost:3000/auth/signIn HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": ""
+}
+### SIGN UP
+POST http://localhost:3000/auth/signUp HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": "",
+  "name": "",
+  "username": ""
+}
