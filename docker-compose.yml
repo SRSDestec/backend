@@ -7,26 +7,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    depends_on:
-      - database-postgres
     env_file:
       - .env
-
-  database-postgres:
-    image: postgres:latest
-    container_name: database-postgres
-    restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: project-r
-    ports:
-      - '5433:5432'
-    env_file:
-      - .env
-    volumes:
-      - database-postgres:/var/lib/postgresql/data
-
-volumes:
-  database-postgres:
-    name: nest-db
